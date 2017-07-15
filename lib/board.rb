@@ -17,6 +17,14 @@ class Board
   def number_to_index(pos)
     number = pos.chars[1]
     lib = {"1" => 0, "2" => 1, "3" => 2, "4" => 3}
+    lib[number]
+  end
+
+  def to_coordinates(pos)
+    coordinate = []
+    coordinate << [character_to_index(pos)]
+    coordinate << [number_to_index(pos)]
+    coordinate
   end
 
   def place_ship(pos_1, pos_2, pos_3 = false)
