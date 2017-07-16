@@ -14,7 +14,6 @@ class ComputerPlayerTest < Minitest::Test
   end
 
   def test_computer_can_place_small_ship
-    skip
     computer = ComputerPlayer.new
     computer.computer_board.place_ship("A1 A2")
     assert_equal true, computer.computer_board.grid[0][0]
@@ -23,7 +22,6 @@ class ComputerPlayerTest < Minitest::Test
   end
 
   def test_computer_can_place_large_ship
-    skip
     computer = ComputerPlayer.new
     computer.computer_board.place_ship("A1 A2 A3")
     assert_equal true, computer.computer_board.grid[0][0]
@@ -33,4 +31,10 @@ class ComputerPlayerTest < Minitest::Test
     assert_equal false, computer.computer_board.grid[3][2]
   end
 
+  def test_generate_valid_option
+    computer = ComputerPlayer.new
+    computer.generate_valid_option("A1")
+    binding.pry
+    assert foo
+  end
 end
