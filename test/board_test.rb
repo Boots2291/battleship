@@ -1,6 +1,7 @@
 require 'minitest/autorun'
 require 'minitest/pride'
 require './lib/board'
+require 'pry'
 
 class BoardTest < Minitest::Test
 
@@ -30,8 +31,16 @@ class BoardTest < Minitest::Test
     assert_equal 3, board.number_to_index("D4")
   end
 
-  def test_to_coordinates
+  # def test_to_coordinates
+  #   board = Board.new
+  #   assert_equal [[1],[3]], board.to_coordinates("B4")
+  # end
+
+  def test_place_small_ship
     board = Board.new
-    assert_equal [[1],[3]], board.to_coordinates("B4")
+    board.place_ship("A1 A2")
+    assert_equal true, board.grid[0][0]
+    assert_equal true, board.grid[0][1]
+    assert_equal false, board.grid[0][2]
   end
 end

@@ -1,5 +1,7 @@
+require 'pry'
+
 class Board
-  attr_reader :grid
+  attr_accessor :grid
 
   def initialize
     @grid = [[false, false, false, false],
@@ -22,12 +24,17 @@ class Board
 
   def to_coordinates(pos)
     coordinate = []
-    coordinate << [character_to_index(pos)]
-    coordinate << [number_to_index(pos)]
+    coordinate << character_to_index(pos)
+    coordinate << number_to_index(pos)
     coordinate
   end
 
-  def place_ship(pos_1, pos_2, pos_3 = false)
-
+  def place_ship(player_input)
+    positions = player_input.split(" ")
+    pos_1 = to_coordinates(positions[0])
+    pos_2 = to_coordinates(positions[1])
+    grid[pos_1[0]][pos_1[1]] = true
+    grid[pos_2[0]][pos_2[1]] = true
   end
+
 end
