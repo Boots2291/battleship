@@ -1,6 +1,7 @@
 require 'minitest/autorun'
 require 'minitest/pride'
 require './lib/board'
+require 'pry'
 
 class BoardTest < Minitest::Test
 
@@ -12,5 +13,44 @@ class BoardTest < Minitest::Test
   def test_board_initializes_empty
     board = Board.new
     refute board.grid.include?(true)
+  end
+
+  def test_character_to_index
+    board = Board.new
+    assert_equal 0, board.character_to_index("A1")
+    assert_equal 1, board.character_to_index("B2")
+    assert_equal 2, board.character_to_index("C1")
+    assert_equal 3, board.character_to_index("D2")
+  end
+
+  def test_number_to_index
+    board = Board.new
+    assert_equal 0, board.number_to_index("A1")
+    assert_equal 1, board.number_to_index("B2")
+    assert_equal 2, board.number_to_index("C3")
+    assert_equal 3, board.number_to_index("D4")
+  end
+
+  # def test_to_coordinates
+  #   board = Board.new
+  #   assert_equal [[1],[3]], board.to_coordinates("B4")
+  # end
+
+  def test_place_small_ship
+    board = Board.new
+    board.place_ship("A1 A2")
+    assert_equal true, board.grid[0][0]
+    assert_equal true, board.grid[0][1]
+    assert_equal false, board.grid[0][2]
+  end
+
+  def test_place_big_ship
+    board = Board.new
+    board.place_ship("A1 A2 A3")
+    assert_equal true, board.grid[0][0]
+    assert_equal true, board.grid[0][1]
+    assert_equal true, board.grid[0][2]
+    assert_equal false, board.grid[1][1]
+    assert_equal false, board.grid[3][2]
   end
 end
