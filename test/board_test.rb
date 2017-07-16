@@ -31,10 +31,10 @@ class BoardTest < Minitest::Test
     assert_equal 3, board.number_to_index("D4")
   end
 
-  # def test_to_coordinates
-  #   board = Board.new
-  #   assert_equal [[1],[3]], board.to_coordinates("B4")
-  # end
+  def test_to_coordinates
+    board = Board.new
+    assert_equal [1,3], board.to_coordinates("B4")
+  end
 
   def test_place_small_ship
     board = Board.new
