@@ -43,4 +43,14 @@ class BoardTest < Minitest::Test
     assert_equal true, board.grid[0][1]
     assert_equal false, board.grid[0][2]
   end
+
+  def test_place_big_ship
+    board = Board.new
+    board.place_ship("A1 A2 A3")
+    assert_equal true, board.grid[0][0]
+    assert_equal true, board.grid[0][1]
+    assert_equal true, board.grid[0][2]
+    assert_equal false, board.grid[1][1]
+    assert_equal false, board.grid[3][2]
+  end
 end

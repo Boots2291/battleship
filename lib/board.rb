@@ -35,6 +35,10 @@ class Board
     pos_2 = to_coordinates(positions[1])
     grid[pos_1[0]][pos_1[1]] = true
     grid[pos_2[0]][pos_2[1]] = true
+    if positions.count > 2
+      pos_3 = to_coordinates(positions[2])
+      grid[pos_3[0]][pos_3[1]] = true
+    end
   end
 
 end
