@@ -29,8 +29,8 @@ class Board
     coordinate
   end
 
-  def place_ship(player_input)
-    positions = player_input.split(" ")
+  def place_ship(input)
+    positions = input.split(" ")
     pos_1 = to_coordinates(positions[0])
     pos_2 = to_coordinates(positions[1])
     grid[pos_1[0]][pos_1[1]] = true
