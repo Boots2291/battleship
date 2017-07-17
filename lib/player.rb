@@ -87,4 +87,5 @@ class ComputerPlayer
     position_3 = frigate[2]
     place_ship("#{position_1} #{position_2} #{position_3}")
   end
+  
 end
