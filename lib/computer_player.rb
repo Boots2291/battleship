@@ -17,8 +17,25 @@ class ComputerPlayer
     ["1", "2", "3", "4"]
   end
 
+  def seed
+    (1..99).to_a
+  end
+
   def generate_first_position
     "#{char_set.sample}#{num_set.sample}"
+  end
+
+  def modifier
+    modifier_seed = seed.sample
+    modifier = nil
+    if modifier_seed <= 33
+      modifier = -1
+    elsif modifier_seed >= 66
+      modifier = 1
+    else
+      modifier = 0
+    end
+    modifier
   end
 
   def generate_valid_second_position(position)
@@ -29,16 +46,19 @@ class ComputerPlayer
 
     position_2 = "#{char_set.sample}#{num_set.sample}"
     split_position_2 = position_2.chars
-    if (split_position_2[0].ord - split_position[0].ord) > 1
-      generate_valid_second_position(position)
-    elsif (split_position_2[0].ord + split_position[0].ord) > 1
-      generate_valid_second_position(position)
-    end
-    if (split_position_2[1].ord - split_position[1].ord) > 1
-      generate_valid_second_position(position)
-    elsif (split_position_2[1].ord + split_position[1].ord) > 1
-      generate_valid_second_position(position)
-    end
+
+
+
+    # if (split_position_2[0].ord - split_position[0].ord) > 1
+    #   generate_valid_second_position(position)
+    # elsif (split_position_2[0].ord + split_position[0].ord) > 1
+    #   generate_valid_second_position(position)
+    # end
+    # if (split_position_2[1].ord - split_position[1].ord) > 1
+    #   generate_valid_second_position(position)
+    # elsif (split_position_2[1].ord + split_position[1].ord) > 1
+    #   generate_valid_second_position(position)
+    # end
   end
 
   def small_ship_placement
