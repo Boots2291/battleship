@@ -31,9 +31,10 @@ class ComputerPlayerTest < Minitest::Test
     assert_equal false, computer.computer_board.grid[3][2]
   end
 
-  def test_generate_valid_second_position
+  def test_possibilities
     computer = ComputerPlayer.new
-    target = computer.generate_valid_second_position("A1")
-    assert_equal ("A2" || "B1"), target
+    target = computer.possibilities["A1"].sample
+    assert String, target.class
+    assert 2, target.length
   end
 end
