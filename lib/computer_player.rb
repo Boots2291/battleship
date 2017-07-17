@@ -3,13 +3,13 @@ require './lib/messages'
 require 'pry'
 
 class ComputerPlayer
-  attr_accessor :player_board,
+  attr_accessor :computer_board,
                 :patrol_boat,
                 :frigate,
                 :ships_remaining
 
   def initialize
-    @player_board = Board.new
+    @computer_board = Board.new
     @patrol_boat = []
     @frigate = []
     @ships_remaining = 2
@@ -23,14 +23,8 @@ class ComputerPlayer
     ["1", "2", "3", "4"]
   end
 
-  def get_patrol_boat_coordinates
-    patrol_boat_coordinates = gets.chomp
-    patrol_boat << patrol_boat_coordinates
-  end
-
-  def get_frigate_coordinates
-    frigate_coordinates = gets.chomp
-    frigate << frigate_coordinates
+  def generate_first_position
+    "#{char_set.sample}#{num_set.sample}"
   end
 
   def possibilities_for_small_ship
@@ -75,16 +69,36 @@ class ComputerPlayer
     }
   end
 
+  def generate_position_for_small_ship(position_1)
+    position_2 = possibilities_for_small_ship[position_1].sample
+  end
+
+  def generate_position_for_large_ship(position_1)
+    position_3 = possibilities_for_large_ship[position_1].sample
+  end
+
   def place_patrol_boat
-    position_1 = patrol_boat[0]
-    position_2 = patrol_boat[1]
-    place_ship("#{position_1} #{position_2}")
+    position_1 = generate_first_position
+    position_2 = generate_position_for_small_ship(position_1)
+    patrol_boat << ["#{position_1} #{position_2}"].join
+    computer_board.place_ship("#{position_1} #{position_2}")
   end
 
   def place_frigate
-    position_1 = frigate[0]
-    position_2 = frigate[1]
-    position_3 = frigate[2]
-    place_ship("#{position_1} #{position_2} #{position_3}")
+    position_1 = generate_first_position
+    positions = generate_position_for_large_ship(position_1)
+    position_2 = positions[0]
+    position_3 = positions[1]
+    if patrol_boat.include?(position_1)
+      place_frigate
+    elsif patrol_boat.include?(position_2)
+      place_frigate
+    elsif patrol_boat.include?(position_3)
+      place_frigate
+    else
+      frigate << ["#{position_1} #{position_2} #{position_3}"].join
+      computer_board.place_ship("#{position_1} #{position_2} #{position_3}")
+    end
   end
+
 end
