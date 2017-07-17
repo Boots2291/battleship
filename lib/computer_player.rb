@@ -27,15 +27,38 @@ class ComputerPlayer
 
   def modifier
     modifier_seed = seed.sample
-    modifier = nil
+    decrease_one = nil
+    increase_one = nil
+    do_nothing = nil
     if modifier_seed <= 33
-      modifier = -1
+      decrease_one = -1
     elsif modifier_seed >= 66
-      modifier = 1
+      increase_one = 1
     else
-      modifier = 0
+      do_nothing = 0
     end
     modifier
+  end
+
+  def possibilities
+    {
+      "A1" => ["A2", "B1"],
+      "A2" => ["A1", "A3", "B2"],
+      "A3" => ["A2", "A4", "B3"],
+      "A4" => ["A3", "B4"],
+      "B1" => ["B2", "A1", "C1"],
+      "B2" => ["B1", "B3", "A2", "C2"],
+      "B3" => ["B2", "B4", "A2", "C3"],
+      "B4" => ["B3", "A4", "C4"],
+      "C1" => ["C2", "B1", "D1"],
+      "C2" => ["C1", "C3", "B2", "D2"],
+      "C3" => ["C2", "C4", "B3", "D3"],
+      "C4" => ["C3", "B4", "D4"],
+      "D1" => ["D2", "C1"],
+      "D2" => ["D1", "D3", "C2"],
+      "D3" => ["D2", "D4", "C3"],
+      "D4" => ["D3", "C4"]
+    }
   end
 
   def generate_valid_second_position(position)
@@ -46,6 +69,7 @@ class ComputerPlayer
 
     position_2 = "#{char_set.sample}#{num_set.sample}"
     split_position_2 = position_2.chars
+
 
 
 
