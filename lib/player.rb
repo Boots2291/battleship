@@ -122,18 +122,4 @@ class Player
     }
   end
 
-  #
-  # def place_patrol_boat
-  #   position_1 = patrol_boat[0]
-  #   position_2 = patrol_boat[1]
-  #   place_ship("#{position_1} #{position_2}")
-  # end
-  #
-  # def place_frigate
-  #   position_1 = frigate[0]
-  #   position_2 = frigate[1]
-  #   position_3 = frigate[2]
-  #   place_ship("#{position_1} #{position_2} #{position_3}")
-  # end
-
 end
