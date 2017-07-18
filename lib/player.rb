@@ -40,7 +40,7 @@ class ComputerPlayer
     hold_for_validation.split(" ")
     position_1 = hold_for_validation[0]
     position_2 = hold_for_validation[1]
-    if 
+    if
 
 
   def get_frigate_coordinates
@@ -56,7 +56,7 @@ class ComputerPlayer
     end
   end
 
-  def possibilities_for_small_ship
+  def patrol_boat_coords_hash
     {
       "A1" => ["A2", "B1"],
       "A2" => ["A1", "A3", "B2"],
@@ -77,7 +77,7 @@ class ComputerPlayer
     }
   end
 
-  def possibilities_for_large_ship
+  def frigate_coords_hash
     {
     "A1"=>[["A2","A3"],["B1","C1"]],
     "A2"=>[["A1","A3"],["B2","C2"]],
