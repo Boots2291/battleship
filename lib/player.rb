@@ -2,7 +2,7 @@ require './lib/board'
 require './lib/messages'
 require 'pry'
 
-class ComputerPlayer
+class Player
   attr_accessor :player_board,
                 :patrol_boat,
                 :frigate,
@@ -40,7 +40,12 @@ class ComputerPlayer
     hold_for_validation.split(" ")
     position_1 = hold_for_validation[0]
     position_2 = hold_for_validation[1]
-    if
+    if patrol_boat_coords_hash[position_1].has_key?(position_2)
+      true
+    else
+      false
+    end
+  end
 
 
   def get_frigate_coordinates
