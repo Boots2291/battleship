@@ -27,7 +27,7 @@ class ComputerPlayer
     "#{char_set.sample}#{num_set.sample}"
   end
 
-  def possibilities_for_small_ship
+  def patrol_boat_coords_hash
     {
       "A1" => ["A2", "B1"],
       "A2" => ["A1", "A3", "B2"],
@@ -48,7 +48,7 @@ class ComputerPlayer
     }
   end
 
-  def possibilities_for_large_ship
+  def frigate_coords_hash
     {
     "A1"=>[["A2","A3"],["B1","C1"]],
     "A2"=>[["A1","A3"],["B2","C2"]],
@@ -70,11 +70,11 @@ class ComputerPlayer
   end
 
   def generate_position_for_small_ship(position_1)
-    position_2 = possibilities_for_small_ship[position_1].sample
+    position_2 = patrol_boat_coords_hash[position_1].sample
   end
 
   def generate_position_for_large_ship(position_1)
-    position_3 = possibilities_for_large_ship[position_1].sample
+    position_3 = frigate_coords_hash[position_1].sample
   end
 
   def place_patrol_boat
