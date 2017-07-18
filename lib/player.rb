@@ -3,16 +3,10 @@ require './lib/messages'
 require 'pry'
 
 class Player
-  attr_accessor :player_board,
-                :patrol_boat,
-                :frigate,
-                :ships_remaining
+  attr_accessor :player_board
 
   def initialize
     @player_board = Board.new
-    @patrol_boat = []
-    @frigate = []
-    @ships_remaining = 2
   end
 
   def char_set
@@ -29,8 +23,8 @@ class Player
     position_1 = patrol_boat_coordinates.split(" ")[0]
     position_2 = patrol_boat_coordinates.split(" ")[1]
     if validate_patrol_boat(patrol_boat_coordinates) == true
-      patrol_boat << position_1
-      patrol_boat << position_2
+      player_board.patrol_boat << position_1
+      player_board.patrol_boat << position_2
       player_board.place_ship(patrol_boat_coordinates)
     else
       # need a message
@@ -52,7 +46,7 @@ class Player
     # need a message
     frigate_coordinates = gets.chomp
     if validate_frigate(frigate_coordinates) == true
-      frigate << frigate_coordinates
+      player_board.frigate << frigate_coordinates
       player_board.place_ship("#{frigate_coordinates}")
     else
       # need a message
@@ -67,11 +61,11 @@ class Player
     coords_to_check = []
     coords_to_check << position_2
     coords_to_check << position_3
-    if patrol_boat.include?(position_1)
+    if player_board.patrol_boat.include?(position_1)
       get_frigate_coordinates
-    elsif patrol_boat.include?(position_2)
+    elsif player_board.patrol_boat.include?(position_2)
       get_frigate_coordinates
-    elsif patrol_boat.include?(position_3)
+    elsif player_board.patrol_boat.include?(position_3)
       get_frigate_coordinates
     elsif frigate_coords_hash[position_1].include?(coords_to_check)
       true
@@ -79,6 +73,14 @@ class Player
       false
     end
   end
+
+  # def player_fire
+  #   # need a message
+  #   fire_at = gets.chomp
+  #   position = to_coordinates(fire_at)
+  #   if computer_board[position[0]][position[1]] == true
+  #
+  # end
 
   def patrol_boat_coords_hash
     {

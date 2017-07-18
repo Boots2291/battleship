@@ -1,13 +1,19 @@
 require 'pry'
 
 class Board
-  attr_accessor :grid
+  attr_accessor :grid,
+                :patrol_boat,
+                :frigate,
+                :ships_remaining
 
   def initialize
     @grid = [[false, false, false, false],
              [false, false, false, false],
              [false, false, false, false],
              [false, false, false, false]]
+    @patrol_boat = []
+    @frigate = []
+    @ships_remaining = 0
   end
 
   def character_to_index(pos)
@@ -39,6 +45,6 @@ class Board
       pos_3 = to_coordinates(positions[2])
       grid[pos_3[0]][pos_3[1]] = true
     end
+    @ships_remaining += 1
   end
-
 end
