@@ -26,38 +26,57 @@ class Player
   def get_patrol_boat_coordinates
     # need a message
     patrol_boat_coordinates = gets.chomp
-    hold_for_validation = []
-    hold_for_validation << patrol_boat_coordinates
-    if validate_patrol_boat(hold_for_validation) == true
-      patrol_boat << patrol_boat_coordinates
+    position_1 = patrol_boat_coordinates.split(" ")[0]
+    position_2 = patrol_boat_coordinates.split(" ")[1]
+    if validate_patrol_boat(patrol_boat_coordinates) == true
+      patrol_boat << position_1
+      patrol_boat << position_2
+      player_board.place_ship(patrol_boat_coordinates)
     else
       # need a message
       get_patrol_boat_coordinates
     end
   end
 
-  def validate_patrol_boat(hold_for_validation)
-    hold_for_validation.split(" ")
-    position_1 = hold_for_validation[0]
-    position_2 = hold_for_validation[1]
-    if patrol_boat_coords_hash[position_1].has_key?(position_2)
+  def validate_patrol_boat(patrol_boat_coordinates)
+    position_1 = patrol_boat_coordinates.split(" ")[0]
+    position_2 = patrol_boat_coordinates.split(" ")[1]
+    if patrol_boat_coords_hash[position_1].include?(position_2)
       true
     else
       false
     end
   end
 
-
   def get_frigate_coordinates
     # need a message
     frigate_coordinates = gets.chomp
-    hold_for_validation = []
-    hold_for_validation << frigate_coordinates
     if validate_frigate(frigate_coordinates) == true
       frigate << frigate_coordinates
+      player_board.place_ship("#{frigate_coordinates}")
     else
       # need a message
       get_frigate_coordinates
+    end
+  end
+
+  def validate_frigate(frigate_coordinates)
+    position_1 = frigate_coordinates.split(" ")[0]
+    position_2 = frigate_coordinates.split(" ")[1]
+    position_3 = frigate_coordinates.split(" ")[2]
+    coords_to_check = []
+    coords_to_check << position_2
+    coords_to_check << position_3
+    if patrol_boat.include?(position_1)
+      get_frigate_coordinates
+    elsif patrol_boat.include?(position_2)
+      get_frigate_coordinates
+    elsif patrol_boat.include?(position_3)
+      get_frigate_coordinates
+    elsif frigate_coords_hash[position_1].include?(coords_to_check)
+      true
+    else
+      false
     end
   end
 
@@ -103,18 +122,18 @@ class Player
     }
   end
 
-
-  def place_patrol_boat
-    position_1 = patrol_boat[0]
-    position_2 = patrol_boat[1]
-    place_ship("#{position_1} #{position_2}")
-  end
-
-  def place_frigate
-    position_1 = frigate[0]
-    position_2 = frigate[1]
-    position_3 = frigate[2]
-    place_ship("#{position_1} #{position_2} #{position_3}")
-  end
+  #
+  # def place_patrol_boat
+  #   position_1 = patrol_boat[0]
+  #   position_2 = patrol_boat[1]
+  #   place_ship("#{position_1} #{position_2}")
+  # end
+  #
+  # def place_frigate
+  #   position_1 = frigate[0]
+  #   position_2 = frigate[1]
+  #   position_3 = frigate[2]
+  #   place_ship("#{position_1} #{position_2} #{position_3}")
+  # end
 
 end
