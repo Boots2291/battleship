@@ -1,15 +1,15 @@
 require './lib/board'
 require './lib/messages'
-require './lib/computer_player'
+require './lib/ai'
 require 'pry'
 
 class Player
   attr_accessor :player_board,
-                :computer_board_display
+                :ai_board_display
 
   def initialize
     @player_board = Board.new
-    @computer_board_display = Board.new
+    @ai_board_display = Board.new
   end
 
   def char_set
@@ -77,13 +77,22 @@ class Player
     end
   end
 
-  # def player_fire
-  #   # need a message
-  #   fire_at = gets.chomp
-  #   position = to_coordinates(fire_at)
-  #   if computer_board[position[0]][position[1]] == true
-  #
-  # end
+  def player_fire
+    # need a message
+    fire_at = gets.chomp
+    position = player.player_board.to_coordinates(fire_at)
+    # if ai.ai_board[position[0]][position[1]] == true
+    if ai.ai_board.patrol_boat[0].include?(fire_at)
+      "You hit the patrol boat!"
+      # update display board
+    elsif ai.ai_board.frigate[0].include?(fire_at)
+      "You hit the frigate!"
+      # update display board
+    elsif
+
+
+
+  end
 
   def patrol_boat_coords_hash
     {
