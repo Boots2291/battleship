@@ -1,3 +1,5 @@
+require './lib/ai'
+require './lib/player'
 require 'pry'
 
 class Board
@@ -46,5 +48,21 @@ class Board
       grid[pos_3[0]][pos_3[1]] = true
     end
     @ships_remaining += 1
+  end
+
+  def fire(fire_at)
+    if ai_board.patrol_boat[0].include?(fire_at)
+      "You hit the patrol boat!"
+      ai_board_display[position[0]][position[1]] = "H"
+    elsif ai_board.frigate[0].include?(fire_at)
+      "You hit the frigate!"
+      ai_board_display[position[0]][position[1]] = "H"
+    elsif ai_board.grid[position[0]][position[1]] == "H"
+      "You already shot there"
+    elsif ai_board.grid[position[0]][position[1]] == "M"
+      "You already shot there"
+    else
+      ai_board_display[position[0]][position[1]] = "M"
+    end
   end
 end

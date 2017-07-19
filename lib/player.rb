@@ -1,15 +1,18 @@
 require './lib/board'
 require './lib/messages'
-require './lib/ai'
+# require './lib/ai'
 require 'pry'
 
-class Player
+class Players
   attr_accessor :player_board,
-                :ai_board_display
+                :ai_board,
+                :display_board
 
   def initialize
     @player_board = Board.new
-    @ai_board_display = Board.new
+    @ai_board = Board.new
+    @display_board = Board.new
+    # @ai_board_info = Board.new
   end
 
   def char_set
@@ -77,21 +80,63 @@ class Player
     end
   end
 
+  def generate_first_position
+    "#{char_set.sample}#{num_set.sample}"
+  end
+
+
+  def generate_position_for_small_ship(position_1)
+    position_2 = patrol_boat_coords_hash[position_1].sample
+  end
+
+  def generate_position_for_large_ship(position_1)
+    position_3 = frigate_coords_hash[position_1].sample
+  end
+
+  def place_patrol_boat
+    position_1 = generate_first_position
+    position_2 = generate_position_for_small_ship(position_1)
+    ai_board.patrol_boat << ["#{position_1}", "#{position_2}"]
+    ai_board.place_ship("#{position_1} #{position_2}")
+  end
+
+  def place_frigate
+    position_1 = generate_first_position
+    positions = generate_position_for_large_ship(position_1)
+    position_2 = positions[0]
+    position_3 = positions[1]
+    if ai_board.patrol_boat.include?(position_1)
+      ai_board.place_frigate
+    elsif ai_board.patrol_boat.include?(position_2)
+      ai_board.place_frigate
+    elsif ai_board.patrol_boat.include?(position_3)
+      ai_board.place_frigate
+    else
+      ai_board.frigate << ["#{position_1}", "#{position_2}", "#{position_3}"]
+      ai_board.place_ship("#{position_1} #{position_2} #{position_3}")
+    end
+  end
+
   def player_fire
     # need a message
     fire_at = gets.chomp
-    position = player.player_board.to_coordinates(fire_at)
+    position = player_board.to_coordinates(fire_at)
+    player_board.fire(fire_at)
+    binding.pry
     # if ai.ai_board[position[0]][position[1]] == true
-    if ai.ai_board.patrol_boat[0].include?(fire_at)
+    if @ai_board.patrol_boat[0].include?(fire_at)
       "You hit the patrol boat!"
-      # update display board
-    elsif ai.ai_board.frigate[0].include?(fire_at)
+      display_board[position[0]][position[1]] = "H"
+    elsif @ai_board.frigate[0].include?(fire_at)
       "You hit the frigate!"
-      # update display board
-    elsif
-
-
-
+      display_board[position[0]][position[1]] = "H"
+    elsif @ai_board.grid[position[0]][position[1]] == "H"
+      "You already shot there"
+    elsif @ai_board.grid[position[0]][position[1]] == "M"
+      "You already shot there"
+    else
+      display_board[position[0]][position[1]] = "M"
+    end
   end
 
   def patrol_boat_coords_hash
