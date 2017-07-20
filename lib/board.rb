@@ -51,7 +51,6 @@ class Board
       pos_3 = to_coordinates(positions[2])
       grid[pos_3[0]][pos_3[1]] = true
     end
-    # @hit_counter += 1
   end
 
   def fire(position, fire_at)

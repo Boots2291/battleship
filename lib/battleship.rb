@@ -32,7 +32,7 @@ class Battleship
     print "second character is a number. Ex: C3\n"
     print "After that, empty boards will be displayed. Please carefully enter\n"
     print "the coordinate that you would like to shoot at. The game goes until\n"
-    print "all ships on one side are sunk."
+    print "all ships on one side are sunk.\n"
   end
 
   def start_game
