@@ -1,5 +1,4 @@
 require './lib/board'
-require './lib/messages'
 require './lib/player'
 require './lib/validate_ships'
 
