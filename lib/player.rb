@@ -2,21 +2,16 @@ require './lib/board'
 require './lib/messages'
 require './lib/ai'
 require './lib/validate_ships'
-require 'pry'
 
 class Player
   include ValidateShips
 
   attr_accessor :player_board,
                 :ai_board
-                # :hit_counter
 
   def initialize(player_board, ai_board, hit_counter)
     @player_board = player_board
     @ai_board = ai_board
-    # @hit_counter = 0
-
-    # @ai_board_info = Board.new
   end
 
   def char_set
@@ -28,7 +23,6 @@ class Player
   end
 
   def get_patrol_boat_coordinates
-    # need a message
     patrol_boat_coordinates = gets.chomp
     position_1 = patrol_boat_coordinates.split(" ")[0]
     position_2 = patrol_boat_coordinates.split(" ")[1]
@@ -36,9 +30,8 @@ class Player
       player_board.patrol_boat << position_1
       player_board.patrol_boat << position_2
       player_board.place_ship(patrol_boat_coordinates)
-      # @ships_remaining += 1
     else
-      # need a message
+      puts "Try again"
       get_patrol_boat_coordinates
     end
   end
@@ -54,14 +47,12 @@ class Player
   end
 
   def get_frigate_coordinates
-    # need a message
     frigate_coordinates = gets.chomp
     if validate_frigate(frigate_coordinates) == true
       player_board.frigate << frigate_coordinates
       player_board.place_ship("#{frigate_coordinates}")
-      # @ships_remaining += 1
     else
-      # need a message
+      puts "Try again"
       get_frigate_coordinates
     end
   end

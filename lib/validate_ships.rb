@@ -1,4 +1,5 @@
 module ValidateShips
+
   def patrol_boat_coords_hash
     {
       "A1" => ["A2", "B1"],

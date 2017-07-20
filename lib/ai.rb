@@ -2,18 +2,15 @@ require './lib/board'
 require './lib/messages'
 require './lib/player'
 require './lib/validate_ships'
-require 'pry'
 
 class AI
   include ValidateShips
   attr_accessor :ai_board,
                 :player_board
-                # :hit_counter
 
   def initialize(ai_board, player_board, hit_counter)
     @ai_board = ai_board
     @player_board = player_board
-    # @hit_counter = 0
   end
 
   def char_set
@@ -28,7 +25,6 @@ class AI
     "#{char_set.sample}#{num_set.sample}"
   end
 
-
   def generate_position_for_small_ship(position_1)
     position_2 = patrol_boat_coords_hash[position_1].sample
   end
@@ -42,7 +38,6 @@ class AI
     position_2 = generate_position_for_small_ship(position_1)
     ai_board.patrol_boat << ["#{position_1}", "#{position_2}"]
     ai_board.place_ship("#{position_1} #{position_2}")
-    # @ships_remaining += 1
   end
 
   def place_frigate
@@ -59,12 +54,10 @@ class AI
     else
       ai_board.frigate << ["#{position_1}", "#{position_2}", "#{position_3}"]
       ai_board.place_ship("#{position_1} #{position_2} #{position_3}")
-      # @ships_remaining += 1
     end
   end
 
   def ai_fire
-    # need a message
     fire_at = generate_first_position
     position = player_board.to_coordinates(fire_at)
     player_board.fire(position, fire_at)
