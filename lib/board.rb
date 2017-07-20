@@ -6,7 +6,8 @@ class Board
   attr_accessor :grid,
                 :patrol_boat,
                 :frigate,
-                :ships_remaining
+                :hit_counter,
+                :display_board
 
   def initialize
     @grid = [[false, false, false, false],
@@ -15,7 +16,11 @@ class Board
              [false, false, false, false]]
     @patrol_boat = []
     @frigate = []
-    @ships_remaining = 0
+    @hit_counter = 0
+    @display_board = [[false, false, false, false],
+                     [false, false, false, false],
+                     [false, false, false, false],
+                     [false, false, false, false]]
   end
 
   def character_to_index(pos)
@@ -47,22 +52,35 @@ class Board
       pos_3 = to_coordinates(positions[2])
       grid[pos_3[0]][pos_3[1]] = true
     end
-    @ships_remaining += 1
+    # @hit_counter += 1
   end
 
-  def fire(fire_at)
-    if ai_board.patrol_boat[0].include?(fire_at)
-      "You hit the patrol boat!"
-      ai_board_display[position[0]][position[1]] = "H"
-    elsif ai_board.frigate[0].include?(fire_at)
-      "You hit the frigate!"
-      ai_board_display[position[0]][position[1]] = "H"
-    elsif ai_board.grid[position[0]][position[1]] == "H"
-      "You already shot there"
-    elsif ai_board.grid[position[0]][position[1]] == "M"
-      "You already shot there"
+  def fire(position, fire_at)
+    if patrol_boat[0].include?(fire_at)
+      puts "Hit!"
+      display_board[position[0]][position[1]] = "H"
+      patrol_boat[0].delete(fire_at)
+      @hit_counter += 1
+      if patrol_boat[0].length == 0
+        puts "Patrol boat sunk!"
+      end
+    elsif frigate[0].include?(fire_at)
+      puts "Hit!"
+      display_board[position[0]][position[1]] = "H"
+      frigate[0].delete(fire_at)
+      @hit_counter += 1
+      if frigate[0].length == 0
+        puts "Frigate sunk!"
+      end
+    elsif grid[position[0]][position[1]] == "H"
+      puts "You already shot there"
+      false
+    elsif grid[position[0]][position[1]] == "M"
+      puts "You already shot there"
+      false
     else
-      ai_board_display[position[0]][position[1]] = "M"
+      display_board[position[0]][position[1]] = "M"
+      puts "Miss"
     end
   end
 end
