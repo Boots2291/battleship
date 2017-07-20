@@ -8,7 +8,7 @@ class AI
   attr_accessor :ai_board,
                 :player_board
 
-  def initialize(ai_board, player_board, hit_counter)
+  def initialize(ai_board, player_board)
     @ai_board = ai_board
     @player_board = player_board
   end

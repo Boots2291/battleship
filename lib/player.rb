@@ -9,7 +9,7 @@ class Player
   attr_accessor :player_board,
                 :ai_board
 
-  def initialize(player_board, ai_board, hit_counter)
+  def initialize(player_board, ai_board)
     @player_board = player_board
     @ai_board = ai_board
   end

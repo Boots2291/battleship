@@ -1,6 +1,5 @@
 require './lib/ai'
 require './lib/player'
-require 'pry'
 
 class Board
   attr_accessor :grid,
@@ -17,10 +16,10 @@ class Board
     @patrol_boat = []
     @frigate = []
     @hit_counter = 0
-    @display_board = [[false, false, false, false],
-                     [false, false, false, false],
-                     [false, false, false, false],
-                     [false, false, false, false]]
+    @display_board = [[" ", " ", " ", " "],
+                     [" ", " ", " ", " "],
+                     [" ", " ", " ", " "],
+                     [" ", " ", " ", " "]]
   end
 
   def character_to_index(pos)
@@ -52,6 +51,7 @@ class Board
       pos_3 = to_coordinates(positions[2])
       grid[pos_3[0]][pos_3[1]] = true
     end
+    # @hit_counter += 1
   end
 
   def fire(position, fire_at)
